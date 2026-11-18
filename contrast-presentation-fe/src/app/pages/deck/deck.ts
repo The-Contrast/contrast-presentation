@@ -164,6 +164,18 @@ export class Deck implements OnInit, AfterViewInit, OnDestroy {
     e.deltaY > 0 ? this.next() : this.prev();
   }
 
+  private pRaf = 0;
+  @HostListener('window:mousemove', ['$event'])
+  onMouse(e: MouseEvent): void {
+    if (this.pRaf) return;
+    this.pRaf = requestAnimationFrame(() => {
+      this.pRaf = 0;
+      const el = this.host.nativeElement.querySelector<HTMLElement>('.deck');
+      el?.style.setProperty('--px', String((e.clientX / innerWidth - 0.5) * 2));
+      el?.style.setProperty('--py', String((e.clientY / innerHeight - 0.5) * 2));
+    });
+  }
+
   @HostListener('touchstart', ['$event'])
   onTouchStart(e: TouchEvent): void {
     this.touchX = e.touches[0].clientX;
@@ -195,7 +207,7 @@ export class Deck implements OnInit, AfterViewInit, OnDestroy {
       w = innerWidth; h = innerHeight;
       cvs.width = w * dpr; cvs.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const n = Math.min(90, Math.floor((w * h) / 15000));
+      const n = Math.min(w < 700 ? 34 : 90, Math.floor((w * h) / 15000));
       pts = Array.from({ length: n }, () => ({
         x: Math.random() * w, y: Math.random() * h,
         vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35, r: Math.random() * 1.6 + 0.6,

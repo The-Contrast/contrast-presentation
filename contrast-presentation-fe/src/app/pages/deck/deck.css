@@ -19,17 +19,19 @@
 /* ---------- background ---------- */
 .bg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.9; }
 .glow { position: absolute; border-radius: 50%; filter: blur(90px); will-change: transform; pointer-events: none; }
-.g1 { width: 56vmax; height: 56vmax; top: -24vmax; right: -16vmax; background: radial-gradient(circle, var(--a), transparent 68%); opacity: 0.26; animation: drift1 18s ease-in-out infinite; }
-.g2 { width: 50vmax; height: 50vmax; bottom: -24vmax; left: -16vmax; background: radial-gradient(circle, var(--b), transparent 68%); opacity: 0.22; animation: drift2 22s ease-in-out infinite; }
+.g1 { width: 56vmax; height: 56vmax; top: -24vmax; right: -16vmax; background: radial-gradient(circle, var(--a), transparent 68%); opacity: 0.2; animation: drift1 18s ease-in-out infinite; }
+.g2 { width: 50vmax; height: 50vmax; bottom: -24vmax; left: -16vmax; background: radial-gradient(circle, var(--b), transparent 68%); opacity: 0.16; animation: drift2 22s ease-in-out infinite; }
 @keyframes drift1 { 50% { transform: translate(-8vmax, 6vmax) scale(1.12); } }
 @keyframes drift2 { 50% { transform: translate(7vmax, -6vmax) scale(1.15); } }
-.vignette { position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(15, 18, 34, 0.09) 1px, transparent 1.3px); background-size: 28px 28px; -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 15%, transparent 75%); mask-image: radial-gradient(ellipse at 50% 40%, #000 15%, transparent 75%); }
+.vignette { position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(15, 18, 34, 0.07) 1px, transparent 1.3px); background-size: 30px 30px; -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 10%, transparent 70%); mask-image: radial-gradient(ellipse at 50% 40%, #000 10%, transparent 70%); }
+.deck::after { content: ''; position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: 0.045; mix-blend-mode: multiply; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
 
 /* ---------- chrome ---------- */
 .progress { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: rgba(15, 18, 34, 0.06); z-index: 30; }
 .progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--a), var(--b)); transition: width 0.8s var(--ease); }
 
-.top { position: absolute; top: 0; left: 0; right: 0; z-index: 30; display: flex; justify-content: space-between; align-items: center; padding: max(16px, env(safe-area-inset-top)) clamp(16px, 4vw, 48px) 0; }
+.top { position: absolute; top: 0; left: 0; right: 0; z-index: 30; display: flex; justify-content: space-between; align-items: center; padding: max(16px, env(safe-area-inset-top)) clamp(16px, 4vw, 48px) 22px; background: linear-gradient(to bottom, rgba(246, 247, 251, 0.97) 55%, transparent); pointer-events: none; }
+.top > * { pointer-events: auto; }
 .brand { background: none; border: 0; color: var(--ink); font-family: var(--font-display); font-weight: 900; font-size: 21px; letter-spacing: -0.03em; padding: 6px 0; }
 .brand span { color: var(--a); }
 .top-r { display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 12px; }
@@ -105,7 +107,7 @@ b { font-weight: 700; }
 .btn.ghost:hover { border-color: var(--ink); transform: translateY(-2px); }
 
 .split { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(28px, 5vw, 80px); align-items: center; }
-@media (max-width: 880px) { .split { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } }
 
 .feat { list-style: none; padding: 0; margin: 0 0 26px; display: grid; gap: 9px; font-size: clamp(14px, 1.7vmin + 0.3vw, 16px); }
 .feat li { display: flex; gap: 10px; }
@@ -300,7 +302,7 @@ b { font-weight: 700; }
 .reach a:hover { color: var(--a); }
 
 /* ---------- mobile polish ---------- */
-@media (max-width: 880px) {
+@media (max-width: 760px) {
   .visual { order: -1; min-height: 0; height: 270px; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent); mask-image: linear-gradient(to bottom, #000 80%, transparent); }
   .visual .phone { width: 200px; align-self: start; margin-top: 4px; }
   .visual .f1 { top: 10px; left: 0; } .visual .f2 { top: 120px; right: 0; } .visual .f3 { display: none; }
@@ -330,4 +332,81 @@ b { font-weight: 700; }
   .pc { padding: 10px 12px; }
   .pc-n, .pc-t small, .pc i { display: none; }
   .pc-t { text-align: center; }
+}
+
+/* ---------- landscape phones & short windows ---------- */
+@media (max-height: 540px) and (orientation: landscape) {
+  .top { padding: 8px clamp(14px, 3vw, 36px) 14px; }
+  .brand { font-size: 17px; }
+  .section-name { display: none; }
+  .icon { width: 30px; height: 30px; }
+  .nav { padding: 18px 12px 8px; gap: 12px; }
+  .arrow { width: 34px; height: 34px; font-size: 15px; }
+  .hint, .frame { display: none; }
+  .slide { padding: 54px clamp(20px, 5vw, 60px) 58px; }
+  .scrollcue { bottom: 52px; }
+
+  .split { grid-template-columns: 1.1fr 0.9fr; gap: clamp(16px, 3vw, 36px); }
+  .visual { order: 0; height: auto; min-height: 0; overflow: visible; -webkit-mask-image: none; mask-image: none; }
+  .visual .phone { width: min(170px, 40vh); align-self: center; margin-top: 0; }
+  .visual .float { display: none; }
+  .visual.orbit-visual { padding: 0; }
+  .orbit-visual .orbit-wrap { width: min(250px, 66vh); }
+  .chipapp { font-size: 10px; padding: 5px 9px; }
+  .hub strong { font-size: 30px; }
+
+  .eyebrow { margin-bottom: 8px; }
+  .tagline { margin-bottom: 8px; }
+  .body { margin-bottom: 12px; font-size: 13.5px; }
+  .feat { margin-bottom: 14px; gap: 6px; font-size: 13.5px; }
+  .btn { padding: 11px 20px; font-size: 14px; }
+  .steps { grid-template-columns: repeat(4, 1fr); margin-top: 14px; }
+  .steps::before, .steps::after { display: block; }
+  .tiles { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .problems { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cases { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .offers.three { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .qrbox { display: none; }
+  .stats { grid-template-columns: repeat(4, 1fr); }
+  .stats .stat:nth-child(odd) { padding-left: 22px; border-left: 1px solid var(--stroke); }
+  .stats .stat:first-child { padding-left: 0; border-left: 0; }
+  .stat:nth-child(n+3) { margin-top: 0; }
+
+  .form-split { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 24px; }
+  .form-split .copy { display: block; }
+  .form-split app-lead-form { order: 0; }
+  .form-split .reach { margin-top: 12px; }
+
+  .title .huge { font-size: clamp(28px, 11vh, 52px); margin-bottom: 10px; }
+  .title .badge { margin-bottom: 10px; padding: 5px 12px; }
+  .title .lead { font-size: 14px; }
+  .title .cta { margin-top: 14px; flex-direction: row; width: auto; }
+  .prodcards { display: none; }
+}
+
+/* tablets (761-1000px): keep visuals inside their column */
+@media (min-width: 761px) and (max-width: 1000px) {
+  .orbit-wrap { width: 225px; } .orbit-visual { padding-right: 6px; }
+  .phone { width: 200px; }
+  .chipapp { font-size: 11px; padding: 6px 11px; }
+}
+
+/* gentle pointer parallax (uses the independent `translate` property so it never fights other animations) */
+.glow.g1 { translate: calc(var(--px, 0) * -34px) calc(var(--py, 0) * -22px); }
+.glow.g2 { translate: calc(var(--px, 0) * 30px) calc(var(--py, 0) * 20px); }
+.visual { translate: calc(var(--px, 0) * 12px) calc(var(--py, 0) * 8px); transition: translate 0.5s var(--ease); }
+.fcard.fc1 { translate: calc(var(--px, 0) * 16px) calc(var(--py, 0) * 10px); }
+.fcard.fc2 { translate: calc(var(--px, 0) * -14px) calc(var(--py, 0) * -9px); }
+.fcard.fc3 { translate: calc(var(--px, 0) * 10px) calc(var(--py, 0) * -12px); }
+@media (hover: none) { .glow, .visual, .fcard { translate: none !important; } }
+.hub { overflow: hidden; padding: 4px; }
+@media (min-width: 761px) and (max-width: 1000px) {
+  .hub small { font-size: 8px; } .hub strong { font-size: 34px; } .hub span { font-size: 9px; } .hub em { font-size: 8.5px; padding: 2px 6px; }
+}
+@media (max-width: 760px) {
+  .hub { width: 50%; padding: 0; }
+  .hub small { font-size: 8.5px; }
+  .hub strong { font-size: 38px; }
+  .hub span { font-size: 10px; line-height: 1.2; }
+  .hub em { white-space: nowrap; font-size: 9.5px; padding: 2px 7px; }
 }
