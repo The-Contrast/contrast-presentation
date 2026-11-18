@@ -90,7 +90,7 @@ import { LeadService } from '../core/lead.service';
   `,
   styles: `
     :host { display: block; color: var(--ink); text-align: left; }
-    .card { background: var(--paper); border-radius: 26px; padding: clamp(18px, 2.4vw, 28px); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7); }
+    .card { background: #fff; border-radius: 26px; padding: clamp(18px, 2.4vw, 28px); border: 1px solid rgba(15, 18, 34, 0.09); box-shadow: 0 34px 70px -34px rgba(15, 18, 34, 0.4); }
     form { display: grid; gap: 10px; }
     .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }

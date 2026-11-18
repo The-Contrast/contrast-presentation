@@ -8,16 +8,16 @@ import { LeadForm } from '../../shared/lead-form';
 interface Theme { a: string; b: string }
 
 const THEMES: Theme[] = [
-  { a: '#ff3b1f', b: '#5b2cff' }, // 0 title
-  { a: '#ff3b1f', b: '#ffb020' }, // 1 problem
-  { a: '#00c2a8', b: '#2f6bff' }, // 2 meetcard
-  { a: '#00c2a8', b: '#18c964' }, // 3 meetcard flow
-  { a: '#7c6bff', b: '#00d4ff' }, // 4 communicator
-  { a: '#7c6bff', b: '#ff3b8a' }, // 5 communicator features
-  { a: '#ffb020', b: '#ff3b1f' }, // 6 why us
-  { a: '#2f6bff', b: '#00d4ff' }, // 7 proof
-  { a: '#ff3b1f', b: '#ffb020' }, // 8 engage
-  { a: '#ff3b1f', b: '#5b2cff' }, // 9 contact
+  { a: '#e8321a', b: '#6a3df0' }, // 0 title
+  { a: '#e8321a', b: '#f59e0b' }, // 1 problem
+  { a: '#00806f', b: '#2563eb' }, // 2 meetcard
+  { a: '#00806f', b: '#16a34a' }, // 3 meetcard flow
+  { a: '#5b4be0', b: '#0ea5e9' }, // 4 communicator
+  { a: '#5b4be0', b: '#db2777' }, // 5 communicator features
+  { a: '#c2610a', b: '#e8321a' }, // 6 why us
+  { a: '#2563eb', b: '#0891b2' }, // 7 proof
+  { a: '#e8321a', b: '#f59e0b' }, // 8 engage
+  { a: '#e8321a', b: '#6a3df0' }, // 9 contact
 ];
 
 const NAMES = ['Welcome', 'The problem', 'MeetCard', 'How MeetCard works', 'Communicator', 'Why Communicator', 'Why The Contrast', 'Proof', 'Work with us', 'Say hello'];
@@ -215,14 +215,14 @@ export class Deck implements OnInit, AfterViewInit, OnDestroy {
         if (p.y < 0 || p.y > h) p.vy *= -1;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, 6.283);
-        ctx.fillStyle = `rgba(${rgb},0.85)`;
+        ctx.fillStyle = `rgba(${rgb},0.5)`;
         ctx.fill();
       }
       for (let i = 0; i < pts.length; i++) {
         for (let j = i + 1; j < pts.length; j++) {
           const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d = dx * dx + dy * dy;
           if (d < 14400) {
-            ctx.strokeStyle = `rgba(${rgb},${(1 - d / 14400) * 0.28})`;
+            ctx.strokeStyle = `rgba(${rgb},${(1 - d / 14400) * 0.16})`;
             ctx.lineWidth = 1;
             ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke();
           }
