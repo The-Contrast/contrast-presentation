@@ -1,0 +1,187 @@
+<header class="nav" [class.scrolled]="scrolled()" [class.open]="menuOpen()">
+  <a class="logo" href="#top" (click)="scrollTo('top'); $event.preventDefault()" aria-label="The Contrast home">
+    the contrast<span class="dot">.</span>
+  </a>
+  <nav class="links" aria-label="Primary">
+    <a href="#products" (click)="scrollTo('products'); $event.preventDefault()">Products</a>
+    <a href="#work" (click)="scrollTo('work'); $event.preventDefault()">Work</a>
+    <a href="#why" (click)="scrollTo('why'); $event.preventDefault()">Why us</a>
+    <a href="#process" (click)="scrollTo('process'); $event.preventDefault()">Process</a>
+  </nav>
+  <button class="btn btn-accent nav-cta" type="button" (click)="scrollTo('contact')">Share requirement</button>
+  <button class="burger" type="button" aria-label="Menu" [attr.aria-expanded]="menuOpen()" (click)="menuOpen.set(!menuOpen())">
+    <span></span><span></span>
+  </button>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="orb orb-a" aria-hidden="true"></div>
+    <div class="orb orb-b" aria-hidden="true"></div>
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <p class="eyebrow in-load" style="--d: 0ms">Welcome · Scan complete <span class="pulse"></span></p>
+      <h1 class="in-load" style="--d: 120ms">
+        World-class engineering, <em>minus the Silicon Valley invoice.</em>
+      </h1>
+      <p class="lead in-load" style="--d: 260ms">
+        We are a senior India-based product team that designs, builds, launches and owns software for founders. Explore what we build, then tell us what you need.
+      </p>
+      <div class="hero-cta in-load" style="--d: 380ms">
+        <button class="btn btn-accent" type="button" (click)="scrollTo('contact')">Share your requirement <span aria-hidden="true">→</span></button>
+        <button class="btn btn-ghost" type="button" (click)="scrollTo('products')">See our products</button>
+      </div>
+    </div>
+
+    <div class="wrap stats">
+      @for (s of stats; track s.label; let i = $index) {
+        <div class="stat" [reveal]="500 + i * 100">
+          <strong [countUp]="s.value" [suffix]="s.suffix" [plain]="s.plain"></strong>
+          <span>{{ s.label }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      @for (m of marquee; track $index) {
+        <span>{{ m }}</span><i>✦</i>
+      }
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="section">
+    <div class="wrap">
+      <p class="eyebrow dark" reveal>What we build</p>
+      <h2 class="title" [reveal]="80">Our products & services</h2>
+
+      <div class="cards">
+        @for (p of products; track p.id; let i = $index) {
+          <article class="card" [class.card-accent]="p.accent" [reveal]="i * 120">
+            <div class="card-top">
+              <span class="idx">{{ p.index }}</span>
+              <span class="badge">{{ p.badge }}</span>
+            </div>
+            <h3>{{ p.name }}</h3>
+            <p class="tag">{{ p.tagline }}</p>
+            <p class="desc">{{ p.description }}</p>
+            <ul>
+              @for (f of p.features; track f) {
+                <li>{{ f }}</li>
+              }
+            </ul>
+            <button class="btn card-btn" type="button" (click)="pick(p.id)">{{ p.cta }} <span aria-hidden="true">→</span></button>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" class="section dark">
+    <div class="wrap">
+      <p class="eyebrow" reveal>Proof, not promises</p>
+      <h2 class="title" [reveal]="80">Things we have shipped</h2>
+      <div class="work-list">
+        @for (w of work; track w.name; let i = $index) {
+          <article class="work" [reveal]="i * 100">
+            <div class="work-n">0{{ i + 1 }}</div>
+            <div class="work-body">
+              <h3>{{ w.name }}</h3>
+              <span class="kind">{{ w.kind }}</span>
+              <p>{{ w.text }}</p>
+            </div>
+            <div class="work-tags">
+              @for (t of w.tags; track t) {
+                <span>{{ t }}</span>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section id="why" class="section">
+    <div class="wrap why-grid">
+      <div>
+        <p class="eyebrow dark" reveal>Why founders stay</p>
+        <h2 class="title" [reveal]="80">Senior engineers from about <span class="hl">$20/hour</span></h2>
+        <p class="sub" [reveal]="160">
+          US and UK agencies typically charge $100–$250/hour. Same craft, honest numbers, paid weekly.
+        </p>
+      </div>
+      <div class="why-list">
+        @for (w of why; track w.title; let i = $index) {
+          <div class="why" [reveal]="i * 90">
+            <span class="tick" aria-hidden="true">✓</span>
+            <div>
+              <h4>{{ w.title }}</h4>
+              <p>{{ w.text }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" class="section alt">
+    <div class="wrap">
+      <p class="eyebrow dark" reveal>How we work</p>
+      <h2 class="title" [reveal]="80">From hello to shipped</h2>
+      <ol class="steps">
+        @for (s of steps; track s.n; let i = $index) {
+          <li [reveal]="i * 110">
+            <span class="step-n">{{ s.n }}</span>
+            <h4>{{ s.title }}</h4>
+            <p>{{ s.text }}</p>
+          </li>
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- CONTACT / FORM -->
+  <section id="contact" class="section dark contact">
+    <div class="wrap contact-grid">
+      <div class="contact-copy">
+        <p class="eyebrow" reveal>Let's talk</p>
+        <h2 class="title" [reveal]="80">Tell us what you need.</h2>
+        <p class="sub" [reveal]="160">
+          Share a few details and our team will reach out within one working day. The first call is free and commits you to nothing.
+        </p>
+        <ul class="reach" [reveal]="240">
+          <li><span>Call</span><a [href]="cfg.phoneHref">{{ cfg.phoneDisplay }}</a></li>
+          <li><span>WhatsApp</span><a [href]="'https://wa.me/' + cfg.whatsappNumber" target="_blank" rel="noopener">Chat now</a></li>
+          <li><span>Email</span><a [href]="'mailto:' + cfg.email">{{ cfg.email }}</a></li>
+          <li><span>Web</span><a [href]="cfg.website" target="_blank" rel="noopener">thecontrast.in</a></li>
+        </ul>
+      </div>
+
+      <app-lead-form reveal [preselect]="pre()" />
+      </div>
+    </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap foot">
+    <div>
+      <div class="logo">the contrast<span class="dot">.</span></div>
+      <p>The Contrast is a brand of Ace Credutech Pvt Ltd.<br>{{ cfg.address }}</p>
+    </div>
+    <div class="foot-links">
+      <a [href]="cfg.linkedin" target="_blank" rel="noopener">LinkedIn</a>
+      <a [href]="cfg.instagram" target="_blank" rel="noopener">Instagram</a>
+      <a [href]="cfg.website" target="_blank" rel="noopener">thecontrast.in</a>
+    </div>
+  </div>
+</footer>
+
+<a class="fab" [href]="'https://wa.me/' + cfg.whatsappNumber" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.6a11.9 11.9 0 0 0 5.7 1.5c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.200-3.400-8.500ZM12 21.800a9.900 9.900 0 0 1-5-1.400l-.4-.2-3.700 1 1-3.600-.2-.4A9.900 9.900 0 1 1 12 21.800Zm5.400-7.400c-.3-.1-1.800-.9-2-1s-.5-.1-.7.100-.8 1-1 1.200-.4.200-.7.100a8 8 0 0 1-4-3.500c-.3-.5.300-.5.800-1.600.1-.2 0-.4 0-.5l-.9-2.200c-.2-.6-.5-.5-.7-.5h-.6a1.200 1.200 0 0 0-.9.400 3.700 3.700 0 0 0-1.100 2.700 6.400 6.400 0 0 0 1.400 3.400 14.600 14.600 0 0 0 5.600 4.900c2.100.9 2.900 1 3.900.8a3.300 3.300 0 0 0 2.200-1.600 2.700 2.700 0 0 0 .2-1.600c-.1-.1-.3-.2-.6-.3Z"/></svg>
+</a>

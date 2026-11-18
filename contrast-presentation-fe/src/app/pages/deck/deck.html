@@ -1,0 +1,327 @@
+<div class="deck" [style.--a]="theme().a" [style.--b]="theme().b">
+  <!-- animated background -->
+  <div class="glow g1" aria-hidden="true"></div>
+  <div class="glow g2" aria-hidden="true"></div>
+  <canvas #bg class="bg" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- chrome -->
+  <div class="progress" aria-hidden="true"><i [style.width.%]="progress()"></i></div>
+  <header class="top">
+    <button class="brand" type="button" (click)="go(0)" aria-label="Back to start">the contrast<span>.</span></button>
+    <div class="top-r">
+      <span class="section-name">{{ name() }}</span>
+      <span class="count"><b>{{ counter() }}</b> / {{ total }}</span>
+      <button class="icon" type="button" (click)="toggleAutoplay()" [attr.aria-pressed]="playing()" [attr.aria-label]="playing() ? 'Pause autoplay' : 'Autoplay'" title="Autoplay (P)">
+        {{ playing() ? '❚❚' : '▶' }}
+      </button>
+      <button class="icon" type="button" (click)="fullscreen()" aria-label="Fullscreen" title="Fullscreen (F)">⛶</button>
+    </div>
+  </header>
+
+  <main class="slides">
+    <!-- 0 · Title -->
+    <section class="slide title" [attr.data-state]="state(0)" [attr.aria-hidden]="idx() !== 0">
+      <div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="inner center">
+        <p class="badge a" style="--i: 0"><span class="live"></span> Scan complete · You're in</p>
+        <h1 class="huge a" style="--i: 1">Never lose a <span class="grad">lead.</span><br>Never miss a <span class="grad">message.</span></h1>
+        <p class="lead a" style="--i: 3">Every business leaks conversations. <b class="c1">MeetCard</b> and <b class="c2">Communicator</b>, from The Contrast, make sure none slip away.</p>
+        <div class="cta a" style="--i: 4">
+          <button class="btn primary" type="button" (click)="next()">See the products <span aria-hidden="true">→</span></button>
+          <button class="btn ghost" type="button" (click)="go(total - 1)">Skip to contact</button>
+        </div>
+        <div class="prodcards a" style="--i: 5">
+          <button type="button" class="pc teal" (click)="go(2)">
+            <span class="pc-n">01</span>
+            <span class="pc-t"><b>MeetCard</b><small>Scan. Save. Connect.</small></span>
+            <i aria-hidden="true">→</i>
+          </button>
+          <button type="button" class="pc violet" (click)="go(4)">
+            <span class="pc-n">02</span>
+            <span class="pc-t"><b>Communicator</b><small>One inbox for every app</small></span>
+            <i aria-hidden="true">→</i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- · Problem -->
+    <section class="slide" [attr.data-state]="state(1)" [attr.aria-hidden]="idx() !== 1">
+      <div class="inner">
+        <p class="eyebrow a" style="--i: 0">The problem</p>
+        <h2 class="big a" style="--i: 1">Every business leaks <em>conversations.</em></h2>
+        <div class="problems">
+          @for (p of problems; track p.fix; let i = $index) {
+            <article class="prob a" [style.--i]="i + 2">
+              <span class="area">{{ p.area }}</span>
+              <h3>{{ p.pain }}</h3>
+              <p>{{ p.detail }}</p>
+              <div class="fix">
+                <span class="arrow-down" aria-hidden="true">↓</span>
+                <b>{{ p.fix }}</b>
+                <span>{{ p.fixLine }}</span>
+                <button type="button" class="link-btn" (click)="go(p.slide)">See how →</button>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- 1 · MeetCard -->
+    <section class="slide" [attr.data-state]="state(2)" [attr.aria-hidden]="idx() !== 2">
+      <div class="inner split">
+        <div class="copy">
+          <p class="eyebrow a" style="--i: 0">Product {{ mc.index }} · {{ mc.badge }}</p>
+          <h2 class="big a" style="--i: 1">Meet<em>Card</em></h2>
+          <p class="tagline a" style="--i: 2">Every connection counts. Never lose a lead.</p>
+          <p class="body a" style="--i: 3">{{ mc.description }}</p>
+          <ul class="feat cols a" style="--i: 4">
+            @for (f of mc.features; track f) { <li>{{ f }}</li> }
+          </ul>
+          <div class="btns a" style="--i: 5">
+            <a class="btn primary" [href]="mc.url" target="_blank" rel="noopener">{{ mc.cta }} <span aria-hidden="true">→</span></a>
+            <button class="btn ghost" type="button" (click)="pick(mc.id)">I'm interested</button>
+          </div>
+        </div>
+        <div class="visual a" style="--i: 2" aria-hidden="true">
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen">
+              <div class="vcard">
+                <b>Aarav Mehta</b>
+                <span>Head of Sales · Nova Foods</span>
+                <i></i><i class="s"></i>
+                <div class="scan"></div>
+              </div>
+              <div class="pop p1">✓ Contact saved</div>
+              <div class="pop p2">🎙 "Wants a demo next week"</div>
+              <div class="pop bubble p3">Hi Aarav, great meeting you at the Expo! Sharing the details we discussed…</div>
+              <div class="pop p4">⏰ Follow up · Tomorrow 10:00</div>
+            </div>
+          </div>
+          <span class="float f1">Scan</span>
+          <span class="float f2">Save</span>
+          <span class="float f3">Connect</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · MeetCard flow -->
+    <section class="slide" [attr.data-state]="state(3)" [attr.aria-hidden]="idx() !== 3">
+      <div class="inner">
+        <p class="eyebrow a" style="--i: 0">How MeetCard works</p>
+        <h2 class="big a" style="--i: 1">Four taps from card to <em>conversation</em></h2>
+        <ol class="steps">
+          @for (s of mcSteps; track s.n; let i = $index) {
+            <li class="a" [style.--i]="i + 2">
+              <span class="dot"></span>
+              <span class="sn">{{ s.n }}</span>
+              <h4>{{ s.title }}</h4>
+              <p>{{ s.text }}</p>
+            </li>
+          }
+        </ol>
+        <div class="langs a" style="--i: 7">
+          <span class="lbl">Reads cards in</span>
+          @for (l of mcLangs; track l) { <span class="pill">{{ l }}</span> }
+          <span class="pill more">+ more</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · Communicator -->
+    <section class="slide" [attr.data-state]="state(4)" [attr.aria-hidden]="idx() !== 4">
+      <div class="inner split">
+        <div class="copy">
+          <p class="eyebrow a" style="--i: 0">Product {{ cm.index }} · {{ cm.badge }}</p>
+          <h2 class="big a" style="--i: 1">Contrast<br><em>Communicator</em></h2>
+          <p class="tagline a" style="--i: 2">{{ cm.tagline }}</p>
+          <p class="body a" style="--i: 3">{{ cm.description }}</p>
+          <ul class="feat a" style="--i: 4">
+            @for (f of cm.features; track f) { <li>{{ f }}</li> }
+          </ul>
+          <div class="btns a" style="--i: 5">
+            <a class="btn primary" [href]="cm.url" target="_blank" rel="noopener">{{ cm.cta }} <span aria-hidden="true">→</span></a>
+            <button class="btn ghost" type="button" (click)="pick(cm.id)">I'm interested</button>
+          </div>
+        </div>
+        <div class="visual orbit-visual a" style="--i: 2" aria-hidden="true">
+          <div class="orbit-wrap">
+            <div class="ringline r1"></div>
+            <div class="ringline r2"></div>
+            <div class="orbit">
+              @for (ap of apps; track ap.name) {
+                <div class="slot" [style.--r.deg]="ap.r"><span class="chipapp">{{ ap.name }}</span></div>
+              }
+            </div>
+            <div class="hub">
+              <small>Today's brief</small>
+              <strong>4</strong>
+              <span>priority messages</span>
+              <em>2 waiting on you</em>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · Communicator features -->
+    <section class="slide" [attr.data-state]="state(5)" [attr.aria-hidden]="idx() !== 5">
+      <div class="inner">
+        <p class="eyebrow a" style="--i: 0">Why Communicator</p>
+        <h2 class="big a" style="--i: 1">From eight inboxes to <em>one calm list</em></h2>
+        <div class="tiles">
+          @for (f of cmFeatures; track f.title; let i = $index) {
+            <article class="tile a" [style.--i]="i + 2">
+              <span class="ico" aria-hidden="true">{{ f.icon }}</span>
+              <h4>{{ f.title }}</h4>
+              <p>{{ f.text }}</p>
+            </article>
+          }
+        </div>
+        <div class="langs a" style="--i: 7">
+          <span class="pill hot">14 days free</span>
+          <span class="pill">No card needed</span>
+          <span class="pill">No auto-renewal, ever</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- · Why us -->
+    <section class="slide" [attr.data-state]="state(6)" [attr.aria-hidden]="idx() !== 6">
+      <div class="inner">
+        <p class="eyebrow a" style="--i: 0">Why The Contrast</p>
+        <h2 class="big a" style="--i: 1">Same craft. <em>Honest numbers.</em></h2>
+        <div class="cmp a" style="--i: 2" role="table" aria-label="Typical agency versus The Contrast">
+          <div class="cmp-row head" role="row"><span role="columnheader"></span><span role="columnheader">Typical US / UK agency</span><span role="columnheader" class="us">The Contrast</span></div>
+          @for (r of compare; track r.what; let i = $index) {
+            <div class="cmp-row a" role="row" [style.--i]="i + 3">
+              <span class="what" role="rowheader">{{ r.what }}</span>
+              <span class="them" role="cell">{{ r.them }}</span>
+              <span class="us" role="cell"><i aria-hidden="true">✓</i>{{ r.us }}</span>
+            </div>
+          }
+        </div>
+        <p class="note a" style="--i: 9">Senior engineers, your repos, your cloud, your IP. The first call is free and commits you to nothing.</p>
+      </div>
+    </section>
+
+    <!-- · Proof -->
+    <section class="slide" [attr.data-state]="state(7)" [attr.aria-hidden]="idx() !== 7">
+      <div class="inner">
+        <p class="eyebrow a" style="--i: 0">Proof, not promises</p>
+        <h2 class="big a" style="--i: 1">Trusted to ship <em>real products.</em></h2>
+        <div class="stats a" style="--i: 2">
+          @if (idx() === 7) {
+            @for (s of stats; track s.label) {
+              <div class="stat">
+                <strong [countUp]="s.value" [suffix]="s.suffix" [plain]="s.plain"></strong>
+                <span>{{ s.label }}</span>
+              </div>
+            }
+          }
+        </div>
+        <div class="cases">
+          @for (w of work; track w.name; let i = $index) {
+            <article class="case a" [style.--i]="i + 3">
+              <span class="kind">{{ w.kind }}</span>
+              <h3>{{ w.name }}</h3>
+              <p>{{ w.text }}</p>
+              <div class="tags">@for (t of w.tags; track t) { <span>{{ t }}</span> }</div>
+            </article>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- · Work with us -->
+    <section class="slide" [attr.data-state]="state(8)" [attr.aria-hidden]="idx() !== 8">
+      <div class="inner">
+        <p class="eyebrow a" style="--i: 0">Work with us</p>
+        <h2 class="big a" style="--i: 1">Three easy ways to <em>start.</em></h2>
+        <div class="offers three">
+          <article class="offer a" style="--i: 2">
+            <span class="tag">Try MeetCard</span>
+            <h3>Scan. Save. Connect.</h3>
+            <ul>
+              <li><b>Basic</b> · scan, notes, WhatsApp</li>
+              <li><b>Plus</b> · AI follow-ups, reminders</li>
+              <li><b>Pro</b> · voice notes, digital card</li>
+            </ul>
+            <p class="fine">Monthly or yearly. No auto-renewal.</p>
+            @if (qr()['meetcard']; as src) {
+              <div class="qrbox"><img [src]="src" alt="QR code for meetcard.in" width="150" height="150"><span>meetcard.in</span></div>
+            }
+            <a class="btn primary" [href]="mc.url" target="_blank" rel="noopener">Open MeetCard <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="offer a" style="--i: 3">
+            <span class="tag t2">Try Communicator</span>
+            <h3>Free for 14 days.</h3>
+            <ul>
+              <li>Every feature, no card needed</li>
+              <li>Teams, Outlook, Gmail, Slack, WhatsApp +</li>
+              <li>Priorities, AI summaries, scheduled replies</li>
+            </ul>
+            <p class="fine">Then pick a plan. No auto-renewal.</p>
+            @if (qr()['communicator']; as src) {
+              <div class="qrbox"><img [src]="src" alt="QR code for Contrast Communicator" width="150" height="150"><span>Start free</span></div>
+            }
+            <a class="btn primary" [href]="cm.url" target="_blank" rel="noopener">Start free <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="offer a" style="--i: 4">
+            <span class="tag t3">Build with us</span>
+            <h3>Your product, our senior team.</h3>
+            <ul>
+              <li>Web, mobile and MVP development</li>
+              <li>From $20/hour, paid weekly</li>
+              <li>Your repos, your cloud, your IP</li>
+            </ul>
+            <p class="fine">First call is free. Commits you to nothing.</p>
+            <div class="spacer"></div>
+            <button class="btn primary" type="button" (click)="pick('software')">Discuss my project <span aria-hidden="true">→</span></button>
+          </article>
+        </div>
+        <p class="note a" style="--i: 6">Also from The Contrast: Task Management app (coming soon) and The Contrast Academy for tech careers.</p>
+      </div>
+    </section>
+
+    <!-- 7 · Contact -->
+    <section class="slide" [attr.data-state]="state(9)" [attr.aria-hidden]="idx() !== 9">
+      <div class="inner split form-split">
+        <div class="copy">
+          <p class="eyebrow a" style="--i: 0">Let's talk</p>
+          <h2 class="big a" style="--i: 1">Tell us what <em>you need.</em></h2>
+          <p class="body a" style="--i: 2">Share a few details and our team will reach out within one working day. Pick what interests you below: a demo of MeetCard or Communicator, a custom build, or a course.</p>
+          <ul class="reach a" style="--i: 3">
+            <li><span>Call</span><a [href]="cfg.phoneHref">{{ cfg.phoneDisplay }}</a></li>
+            <li><span>WhatsApp</span><a [href]="'https://wa.me/' + cfg.whatsappNumber" target="_blank" rel="noopener">Chat now</a></li>
+            <li><span>Email</span><a [href]="'mailto:' + cfg.email">{{ cfg.email }}</a></li>
+            <li><span>Web</span><a [href]="cfg.website" target="_blank" rel="noopener">thecontrast.in</a></li>
+          </ul>
+        </div>
+        <app-lead-form class="a" style="--i: 2" [preselect]="preselect()" />
+      </div>
+    </section>
+  </main>
+
+  <!-- bottom nav -->
+  <footer class="nav">
+    <button class="arrow" type="button" (click)="prev()" [disabled]="idx() === 0" aria-label="Previous slide">←</button>
+    <div class="dots" role="tablist" aria-label="Slides">
+      @for (d of dots; track d) {
+        <button type="button" role="tab" [class.on]="d === idx()" [attr.aria-selected]="d === idx()" [attr.aria-label]="'Slide ' + (d + 1)" (click)="go(d)"></button>
+      }
+    </div>
+    <button class="arrow" type="button" (click)="next()" [disabled]="idx() === total - 1" aria-label="Next slide">→</button>
+  </footer>
+
+  @if (more()) {
+    <button class="scrollcue" type="button" (click)="nudge()" aria-label="Scroll for more">↓ more</button>
+  }
+
+  @if (hint() && idx() === 0) {
+    <p class="hint" aria-hidden="true">Swipe or use ← → keys</p>
+  }
+</div>

@@ -1,59 +1,56 @@
-# ContrastPresentation
+# The Contrast: Exhibition Scan Page
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.6.
+Mobile-first Angular site that visitors reach by scanning a QR code at your booth.
+They see who you are, your 3 products, proof of work, then fill a requirement form.
 
-## Development server
+## Routes
 
-To start a local development server, run:
+| Path     | Purpose                                                        |
+|----------|----------------------------------------------------------------|
+| `/`      | Animated slide deck visitors see after scanning (swipe / arrows / P = autoplay / F = fullscreen) |
+| `/site`  | Classic scrolling version of the same content                  |
+| `/qr`    | Printable booth poster with the QR code (paste your live URL)  |
+| `/leads` | Leads captured on this device, with CSV export                 |
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Run
 
 ```bash
-ng generate component component-name
+npm install
+ng serve            # http://localhost:4200
+ng build            # output in dist/contrast-presentation/browser
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Before the exhibition
 
-```bash
-ng generate --help
+1. **Edit contact details and links:** `src/app/core/config.ts`
+2. **Edit product / work copy:** `src/app/core/content.ts`
+3. **Deploy** `dist/contrast-presentation/browser` (Netlify, Vercel, Cloudflare Pages, or any static host). Phones cannot open `localhost`.
+4. Open `/qr` on the live site, confirm the URL, **print the poster**, and test-scan it.
+5. **Set up lead delivery** (below).
+
+## Where do the leads go?
+
+Visitors submit from their own phones, so leads must be sent to a server you control.
+Set `leadEndpoint` in `config.ts`. Easiest free option, a Google Sheet:
+
+1. Create a Google Sheet, then **Extensions → Apps Script**, paste:
+
+```js
+function doPost(e) {
+  const d = JSON.parse(e.postData.contents);
+  SpreadsheetApp.getActiveSheet().appendRow([
+    d.createdAt, d.name, d.phone, d.email, d.company,
+    (d.interests || []).join(', '), d.budget, d.timeline, d.message, d.source,
+  ]);
+  return ContentService.createTextOutput('ok');
+}
 ```
 
-## Building
+2. **Deploy → New deployment → Web app**, execute as *Me*, access *Anyone*.
+3. Copy the web-app URL into `leadEndpoint`.
 
-To build the project run:
+Other endpoints (Formspree, Web3Forms) also work; they receive the lead as a JSON POST.
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Safety nets already built in:
+- Every lead is saved on the device first, and failed sends retry on the next visit.
+- After submitting, the visitor gets a **"Send on WhatsApp"** button with their details pre-filled to your number.

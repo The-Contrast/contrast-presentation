@@ -1,1 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
+/* registered so the deck's theme colours can animate smoothly between slides */
+@property --a { syntax: '<color>'; inherits: true; initial-value: #ff3b1f; }
+@property --b { syntax: '<color>'; inherits: true; initial-value: #5b2cff; }
+
+:root {
+  --ink: #111113;
+  --ink-2: #1c1c20;
+  --paper: #fafafa;
+  --paper-2: #f1f1f4;
+  --line: #e7e7ea;
+  --muted: #6b6b73;
+  --accent: #ff3b1f;
+  --font-display: 'Archivo', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+p { margin: 0; }
+a { color: inherit; }
+img, svg { max-width: 100%; display: block; }
+button { font: inherit; cursor: pointer; }
+
+::selection { background: var(--accent); color: #fff; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* scroll reveal (applied by the [reveal] directive) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+}
