@@ -25,11 +25,12 @@
       <div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <div class="fcard fc1" aria-hidden="true"><span class="dot">✓</span><span><b>Contact saved</b><small>Aarav Mehta · Nova Foods</small></span></div>
       <div class="fcard fc3" aria-hidden="true"><span class="dot">⏰</span><span><b>Follow-up set</b><small>WhatsApp · Tomorrow 10:00</small></span></div>
+      <div class="fcard fc4" aria-hidden="true"><span class="dot">✎</span><span><b>Minutes sent</b><small>5 action items · owners set</small></span></div>
       <div class="fcard fc2" aria-hidden="true"><span class="dot">4</span><span><b>Priority messages</b><small>2 waiting on you</small></span></div>
       <div class="inner center">
         <p class="badge a" style="--i: 0"><span class="live"></span> Scan complete · You're in</p>
-        <h1 class="huge a" style="--i: 1">Never lose a <span class="grad">lead.</span><br>Never miss a <span class="grad">message.</span></h1>
-        <p class="lead a" style="--i: 3">Every business leaks conversations. <b class="c1">MeetCard</b> and <b class="c2">Communicator</b>, from The Contrast, make sure none slip away.</p>
+        <h1 class="huge a" style="--i: 1">Never lose a <span class="grad">lead.</span><br>Never miss a <span class="grad">message.</span><br>Never forget a <span class="grad">decision.</span></h1>
+        <p class="lead a" style="--i: 3">Every business leaks conversations. <b class="c1">MeetCard</b>, <b class="c2">Communicator</b> and <b class="c3">MeetMemo</b>, from The Contrast, make sure none slip away.</p>
         <div class="cta a" style="--i: 4">
           <button class="btn primary" type="button" (click)="next()">See the products <span aria-hidden="true">→</span></button>
           <button class="btn ghost" type="button" (click)="go(total - 1)">Skip to contact</button>
@@ -43,6 +44,11 @@
           <button type="button" class="pc violet" (click)="go(4)">
             <span class="pc-n">02</span>
             <span class="pc-t"><b>Communicator</b><small>One inbox for every app</small></span>
+            <i aria-hidden="true">→</i>
+          </button>
+          <button type="button" class="pc rose" (click)="go(6)">
+            <span class="pc-n">03</span>
+            <span class="pc-t"><b>MeetMemo</b><small>Every meeting, written down</small></span>
             <i aria-hidden="true">→</i>
           </button>
         </div>
@@ -192,32 +198,102 @@
       </div>
     </section>
 
-    <!-- · Why us -->
+    <!-- · MeetMemo -->
     <section class="slide" [attr.data-state]="state(6)" [attr.aria-hidden]="idx() !== 6">
+      <div class="inner split">
+        <div class="copy">
+          <p class="eyebrow a" style="--i: 0">Product {{ mm.index }} · {{ mm.badge }}</p>
+          <h2 class="big a" style="--i: 1">Meet<em>Memo</em></h2>
+          <p class="tagline a" style="--i: 2">{{ mm.tagline }} It joins your call, writes every word, and sends the minutes.</p>
+          <p class="body a" style="--i: 3">{{ mm.description }}</p>
+          <ul class="feat a" style="--i: 4">
+            @for (f of mm.features; track f) { <li>{{ f }}</li> }
+          </ul>
+          <div class="btns a" style="--i: 5">
+            <a class="btn primary" [href]="mm.url" target="_blank" rel="noopener">{{ mm.cta }} <span aria-hidden="true">→</span></a>
+            <button class="btn ghost" type="button" (click)="pick(mm.id)">I'm interested</button>
+          </div>
+        </div>
+        <div class="visual a" style="--i: 2" aria-hidden="true">
+          <div class="memo">
+            <div class="memo-head"><span class="rec"></span><b>Weekly sync</b><em>REC · 00:32</em></div>
+            <div class="wave">
+              @for (b of bars; track b) { <i [style.--d]="b"></i> }
+            </div>
+            <div class="tx">
+              <p class="line l1"><b class="av v1">A</b><span>Let's ship the pricing page by Friday.</span></p>
+              <p class="line l2"><b class="av v2">P</b><span>आज क्लाइंट कॉल है।<small>The client call is today.</small></span></p>
+            </div>
+            <div class="items">
+              <div class="it i1"><span>✓</span>Pricing page <em>Aarav · Fri</em></div>
+              <div class="it i2"><span>✓</span>Send proposal <em>Priya · Mon</em></div>
+            </div>
+          </div>
+          <span class="float f1">Meet</span>
+          <span class="float f2">Teams</span>
+          <span class="float f3">Zoom</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- · MeetMemo flow -->
+    <section class="slide" [attr.data-state]="state(7)" [attr.aria-hidden]="idx() !== 7">
+      <div class="inner">
+        <p class="eyebrow a" style="--i: 0">How MeetMemo works</p>
+        <h2 class="big a" style="--i: 1">From call to minutes in <em>four steps</em></h2>
+        <ol class="steps">
+          @for (s of mmSteps; track s.n; let i = $index) {
+            <li class="a" [style.--i]="i + 2">
+              <span class="dot"></span>
+              <span class="sn">{{ s.n }}</span>
+              <h4>{{ s.title }}</h4>
+              <p>{{ s.text }}</p>
+            </li>
+          }
+        </ol>
+        <div class="langs a" style="--i: 7">
+          <span class="lbl">Works with</span>
+          @for (l of mmPlatforms; track l) { <span class="pill">{{ l }}</span> }
+          <span class="pill hot">2 hours free · No card</span>
+        </div>
+        <p class="note a" style="--i: 8">Consent built in: the recorder joins under its own name and posts “Recording started” in the chat.</p>
+      </div>
+    </section>
+
+    <!-- · Why us -->
+    <section class="slide" [attr.data-state]="state(8)" [attr.aria-hidden]="idx() !== 8">
       <div class="inner">
         <p class="eyebrow a" style="--i: 0">Why The Contrast</p>
-        <h2 class="big a" style="--i: 1">Same craft. <em>Honest numbers.</em></h2>
-        <div class="cmp a" style="--i: 2" role="table" aria-label="Typical agency versus The Contrast">
-          <div class="cmp-row head" role="row"><span role="columnheader"></span><span role="columnheader">Typical US / UK agency</span><span role="columnheader" class="us">The Contrast</span></div>
-          @for (r of compare; track r.what; let i = $index) {
-            <div class="cmp-row a" role="row" [style.--i]="i + 3">
-              <span class="what" role="rowheader">{{ r.what }}</span>
-              <span class="them" role="cell">{{ r.them }}</span>
-              <span class="us" role="cell"><i aria-hidden="true">✓</i>{{ r.us }}</span>
-            </div>
+        <h2 class="big a" style="--i: 1">A partner you can <em>rely on.</em></h2>
+        <div class="benefits">
+          @for (b of benefits; track b.n; let i = $index) {
+            <article class="tile a" [style.--i]="i + 2">
+              <span class="ico" aria-hidden="true">{{ b.n }}</span>
+              <h4>{{ b.title }}</h4>
+              <p>{{ b.text }}</p>
+            </article>
           }
         </div>
-        <p class="note a" style="--i: 9">Senior engineers, your repos, your cloud, your IP. The first call is free and commits you to nothing.</p>
+        <div class="ctastrip a" style="--i: 9">
+          <div class="ctatext">
+            <b>Ready to talk?</b>
+            <span>The first call is free. No commitment.</span>
+          </div>
+          <div class="ctabtns">
+            <button class="btn light" type="button" (click)="pick('software')">Discuss my project <span aria-hidden="true">→</span></button>
+            <a class="btn outline" [href]="'https://wa.me/' + cfg.whatsappNumber" target="_blank" rel="noopener">WhatsApp us</a>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- · Proof -->
-    <section class="slide" [attr.data-state]="state(7)" [attr.aria-hidden]="idx() !== 7">
+    <section class="slide" [attr.data-state]="state(9)" [attr.aria-hidden]="idx() !== 9">
       <div class="inner">
         <p class="eyebrow a" style="--i: 0">Proof, not promises</p>
         <h2 class="big a" style="--i: 1">Trusted to ship <em>real products.</em></h2>
         <div class="stats a" style="--i: 2">
-          @if (idx() === 7) {
+          @if (idx() === 9) {
             @for (s of stats; track s.label) {
               <div class="stat">
                 <strong [countUp]="s.value" [suffix]="s.suffix" [plain]="s.plain"></strong>
@@ -236,15 +312,18 @@
             </article>
           }
         </div>
+      <div class="more a" style="--i: 6">
+          <a class="btn ghost" [href]="cfg.redirectUrl">See more on thecontrast.in <span aria-hidden="true">→</span></a>
+        </div>
       </div>
     </section>
 
     <!-- · Work with us -->
-    <section class="slide" [attr.data-state]="state(8)" [attr.aria-hidden]="idx() !== 8">
+    <section class="slide" [attr.data-state]="state(10)" [attr.aria-hidden]="idx() !== 10">
       <div class="inner">
         <p class="eyebrow a" style="--i: 0">Work with us</p>
-        <h2 class="big a" style="--i: 1">Three easy ways to <em>start.</em></h2>
-        <div class="offers three">
+        <h2 class="big a" style="--i: 1">Four easy ways to <em>start.</em></h2>
+        <div class="offers four">
           <article class="offer a" style="--i: 2">
             <span class="tag t1">Try MeetCard</span>
             <h3>Scan. Save. Connect.</h3>
@@ -274,24 +353,42 @@
             <a class="btn primary" [href]="cm.url" target="_blank" rel="noopener">Start free <span aria-hidden="true">→</span></a>
           </article>
           <article class="offer a" style="--i: 4">
-            <span class="tag t3">Build with us</span>
-            <h3>Your product, our senior team.</h3>
+            <span class="tag t4">Try MeetMemo</span>
+            <h3>2 hours free.</h3>
             <ul>
-              <li>Web, mobile and MVP development</li>
-              <li>From $20/hour, paid weekly</li>
-              <li>Your repos, your cloud, your IP</li>
+              <li>Google Meet, Teams, Zoom, Discord</li>
+              <li>Minutes, decisions, action items</li>
+              <li>English, Hindi, Marathi, Hinglish</li>
             </ul>
-            <p class="fine">First call is free. Commits you to nothing.</p>
+            <p class="fine">No card needed.</p>
+            @if (qr()['meetmemo']; as src) {
+              <div class="qrbox"><img [src]="src" alt="QR code for MeetMemo" width="150" height="150"><span>Start free</span></div>
+            }
+            <a class="btn primary" [href]="mm.url" target="_blank" rel="noopener">Start free <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="offer a" style="--i: 5">
+            <span class="tag t3">Build with us</span>
+            <h3>Have an idea? We'll build it.</h3>
+            <p class="lede">A senior team that designs, builds, launches and supports your product.</p>
+            <div class="mini-chips"><span>Web</span><span>Mobile</span><span>MVP</span><span>UI/UX</span></div>
+            <ul>
+              <li>One team, end to end</li>
+              <li>Your code, your cloud, your IP</li>
+              <li>We reply within one working day</li>
+            </ul>
             <div class="spacer"></div>
             <button class="btn primary" type="button" (click)="pick('software')">Discuss my project <span aria-hidden="true">→</span></button>
           </article>
         </div>
-        <p class="note a" style="--i: 6">Also from The Contrast: Task Management app (coming soon) and The Contrast Academy for tech careers.</p>
+        <div class="more a" style="--i: 7">
+          <a class="btn ghost" [href]="cfg.redirectUrl">More products &amp; services <span aria-hidden="true">→</span></a>
+          <span class="more-note">Task Management, The Contrast Academy and more at thecontrast.in</span>
+        </div>
       </div>
     </section>
 
     <!-- 7 · Contact -->
-    <section class="slide" [attr.data-state]="state(9)" [attr.aria-hidden]="idx() !== 9">
+    <section class="slide" [attr.data-state]="state(11)" [attr.aria-hidden]="idx() !== 11">
       <div class="inner split form-split">
         <div class="copy">
           <p class="eyebrow a" style="--i: 0">Let's talk</p>

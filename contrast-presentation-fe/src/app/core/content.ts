@@ -51,8 +51,26 @@ export const PRODUCTS: Product[] = [
     url: 'https://teams-messenger-d97c9.web.app',
   },
   {
-    id: 'software',
+    id: 'meetmemo',
     index: '03',
+    badge: 'Web app · 2 hours free',
+    name: 'MeetMemo',
+    tagline: 'Every meeting, written down.',
+    description:
+      'An AI note-taker that joins your call, writes every word in English, Hindi, Marathi or Hinglish, and sends the minutes, decisions and action items.',
+    features: [
+      'Joins Google Meet, Teams, Zoom, Discord',
+      'Speaker-labelled transcripts',
+      'Summaries, decisions, action items',
+      'Owner and due date on every task',
+      'Search and jump to the exact moment',
+    ],
+    cta: 'Start free (2 hours)',
+    url: 'https://meet-minutes-7455a.web.app',
+  },
+  {
+    id: 'software',
+    index: '04',
     badge: 'Studio · Live',
     name: 'Custom Software & Apps',
     tagline: 'A senior product team that designs, builds, launches and owns it.',
@@ -63,7 +81,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'task',
-    index: '04',
+    index: '05',
     badge: 'Product · Coming soon',
     name: 'Task Management App',
     tagline: 'Plan, assign and ship work the way a delivery team actually works.',
@@ -74,7 +92,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'academy',
-    index: '05',
+    index: '06',
     badge: 'Academy · Admissions open',
     name: 'The Contrast Academy',
     tagline: 'Project-based courses, built by a real software company.',
@@ -91,6 +109,15 @@ export const MC_STEPS = [
   { n: '03', title: 'AI writes the follow-up', text: 'Friendly, formal or short. Edit it, then send now or schedule it.' },
   { n: '04', title: 'Send and remind', text: 'Goes out on WhatsApp from your own number, with a reminder set.' },
 ];
+
+export const MM_STEPS = [
+  { n: '01', title: 'Connect', text: 'Add the recorder to Google Meet, Teams, Zoom or Discord, or record from your browser or a laptop in the room.' },
+  { n: '02', title: 'It listens', text: 'Transcribes every speaker in English, Hindi, Marathi or Hinglish, with an English line beneath.' },
+  { n: '03', title: 'Minutes arrive', text: 'A few minutes after the meeting: summary, decisions and action items.' },
+  { n: '04', title: 'Everyone acts', text: 'Tasks go to owners with due dates, and the transcript stays searchable.' },
+];
+
+export const MM_PLATFORMS = ['Google Meet', 'Microsoft Teams', 'Zoom', 'Discord', 'In person'];
 
 export const MC_LANGS = ['English', 'हिन्दी', 'मराठी', 'தமிழ்', 'ಕನ್ನಡ', 'বাংলা'];
 
@@ -120,15 +147,23 @@ export const PROBLEMS = [
     fixLine: 'One inbox, sorted by priority, with AI summaries and scheduled replies.',
     slide: 4,
   },
+  {
+    area: 'Meetings & clients',
+    pain: 'Meetings end. Decisions and owners disappear.',
+    detail: 'Manual notes, unclear ownership and follow-ups nobody chases, so client requests get lost.',
+    fix: 'MeetMemo',
+    fixLine: 'It joins the call and sends minutes with an owner and due date on every task.',
+    slide: 6,
+  },
 ];
 
-export const COMPARE = [
-  { what: 'Hourly rate', them: '$100–$250', us: 'From $20, senior' },
-  { what: 'Quotes', them: 'Often hidden', us: 'Clear, up front' },
-  { what: 'Hand-offs', them: 'Several teams', us: 'One team, end to end' },
-  { what: 'Lock-in', them: 'Common', us: 'Paid weekly, cancel anytime' },
-  { what: 'Code & IP', them: 'Varies', us: 'Yours from day one' },
-  { what: 'The team', them: 'Opaque', us: 'Visible, named' },
+export const OWNER_BENEFITS = [
+  { n: '01', title: 'One accountable team', text: 'Plan, build and run, with one point of contact.' },
+  { n: '02', title: 'You own everything', text: 'Your code, cloud and IP. No lock-in.' },
+  { n: '03', title: 'Senior, hands-on people', text: 'Experienced engineers, not a junior bench.' },
+  { n: '04', title: 'No surprises', text: 'Clear scope and timeline. Billed weekly.' },
+  { n: '05', title: 'Proven since 2015', text: '320,000+ project hours for 20+ companies.' },
+  { n: '06', title: 'We ship our own products', text: 'MeetCard, Communicator and MeetMemo.' },
 ];
 
 export const STATS = [
@@ -141,6 +176,7 @@ export const STATS = [
 export const MARQUEE = [
   'MeetCard',
   'Communicator',
+  'MeetMemo',
   'Web Development',
   'Mobile Apps',
   'MVP Development',
@@ -187,6 +223,7 @@ export const STEPS = [
 export const INTERESTS = [
   { id: 'meetcard', label: 'MeetCard' },
   { id: 'communicator', label: 'Communicator' },
+  { id: 'meetmemo', label: 'MeetMemo' },
   { id: 'software', label: 'Custom software / app' },
   { id: 'task', label: 'Task Management app' },
   { id: 'academy', label: 'Academy course' },

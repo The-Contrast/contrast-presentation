@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, computed, effect, inject, signal, viewChild } from '@angular/core';
 import QRCode from 'qrcode';
 import { CONFIG } from '../../core/config';
-import { CM_APPS, CM_FEATURES, COMPARE, MC_LANGS, MC_STEPS, PRODUCTS, PROBLEMS, STATS, WORK } from '../../core/content';
+import { CM_APPS, CM_FEATURES, MC_LANGS, MC_STEPS, MM_PLATFORMS, MM_STEPS, OWNER_BENEFITS, PRODUCTS, PROBLEMS, STATS, WORK } from '../../core/content';
 import { CountUp } from '../../shared/motion';
 import { LeadForm } from '../../shared/lead-form';
 
@@ -14,13 +14,15 @@ const THEMES: Theme[] = [
   { a: '#00806f', b: '#16a34a' }, // 3 meetcard flow
   { a: '#5b4be0', b: '#0ea5e9' }, // 4 communicator
   { a: '#5b4be0', b: '#db2777' }, // 5 communicator features
-  { a: '#c2610a', b: '#e8321a' }, // 6 why us
-  { a: '#2563eb', b: '#0891b2' }, // 7 proof
-  { a: '#e8321a', b: '#f59e0b' }, // 8 engage
-  { a: '#e8321a', b: '#6a3df0' }, // 9 contact
+  { a: '#c2185b', b: '#7c3aed' }, // 6 meetmemo
+  { a: '#c2185b', b: '#f59e0b' }, // 7 meetmemo flow
+  { a: '#c2610a', b: '#e8321a' }, // 8 why us
+  { a: '#2563eb', b: '#0891b2' }, // 9 proof
+  { a: '#e8321a', b: '#f59e0b' }, // 10 engage
+  { a: '#e8321a', b: '#6a3df0' }, // 11 contact
 ];
 
-const NAMES = ['Welcome', 'The problem', 'MeetCard', 'How MeetCard works', 'Communicator', 'Why Communicator', 'Why The Contrast', 'Proof', 'Work with us', 'Say hello'];
+const NAMES = ['Welcome', 'The problem', 'MeetCard', 'How MeetCard works', 'Communicator', 'Why Communicator', 'MeetMemo', 'How MeetMemo works', 'Why The Contrast', 'Proof', 'Work with us', 'Say hello'];
 
 const hexToRgb = (h: string): [number, number, number] => [
   parseInt(h.slice(1, 3), 16),
@@ -38,9 +40,13 @@ export class Deck implements OnInit, AfterViewInit, OnDestroy {
   protected readonly cfg = CONFIG;
   protected readonly mc = PRODUCTS.find((p) => p.id === 'meetcard')!;
   protected readonly cm = PRODUCTS.find((p) => p.id === 'communicator')!;
+  protected readonly mm = PRODUCTS.find((p) => p.id === 'meetmemo')!;
+  protected readonly mmSteps = MM_STEPS;
+  protected readonly mmPlatforms = MM_PLATFORMS;
+  protected readonly bars = Array.from({ length: 24 }, (_, i) => i);
   protected readonly sw = PRODUCTS.find((p) => p.id === 'software')!;
   protected readonly problems = PROBLEMS;
-  protected readonly compare = COMPARE;
+  protected readonly benefits = OWNER_BENEFITS;
   protected readonly work = WORK;
   protected readonly stats = STATS;
   protected readonly mcSteps = MC_STEPS;
@@ -93,7 +99,7 @@ export class Deck implements OnInit, AfterViewInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     const out: Record<string, string> = {};
-    for (const p of [this.mc, this.cm]) {
+    for (const p of [this.mc, this.cm, this.mm]) {
       if (p.url) {
         out[p.id] = await QRCode.toDataURL(p.url, { width: 360, margin: 1, errorCorrectionLevel: 'M', color: { dark: '#111113', light: '#ffffff' } });
       }
